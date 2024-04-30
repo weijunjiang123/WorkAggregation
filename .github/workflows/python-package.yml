@@ -1,0 +1,22 @@
+name: Deploy Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Unzip js.7z
+        run: 7z x js.7z -o/static
+
+      - name: Run server
+        run: python server.py
